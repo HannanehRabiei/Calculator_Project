@@ -8,7 +8,7 @@ public class CalculatorUI {
 
         JTextField result = new JTextField();
         result.setBounds(0,0,150,50);
-        result.setEnabled(false);
+        result.setEditable(false);
 
         JButton cancle = new JButton("c");
         cancle.setBounds(150,0,50,50);
