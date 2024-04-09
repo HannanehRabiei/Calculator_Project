@@ -7,9 +7,11 @@ public class CalculatorUI {
         JFrame calculator = new JFrame("Calculator");
 
         JTextField result = new JTextField();
-        result.setBounds(0,0,200,50);
+        result.setBounds(0,0,150,50);
         result.setEnabled(false);
 
+        JButton cancle = new JButton("c");
+        cancle.setBounds(150,0,50,50);
         JButton one = new JButton("1");
         one.setBounds(0,50,50,50);
         JButton two = new JButton("2");
@@ -44,6 +46,7 @@ public class CalculatorUI {
         division.setBounds(150,200,50,50);
 
         calculator.add(result);
+        calculator.add(cancle);
         calculator.add(one);
         calculator.add(two);
         calculator.add(three);
@@ -60,6 +63,7 @@ public class CalculatorUI {
         calculator.add(zero);
         calculator.add(equal);
         calculator.add(division);
+
 
 
         calculator.setLayout(null);
