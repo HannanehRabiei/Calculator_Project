@@ -7,7 +7,6 @@ public class MinusOperator {
         double d2 = parseDouble(number2);
         double result=d1-d2;
 
-
         return String.valueOf(result);
     }
 }
