@@ -2,72 +2,109 @@ import javax.swing.*;
 
 public class CalculatorUI {
 
+    private static JTextField jTextField;
+    private static String number1;
+
+
     public static void main(String... args) {
 
         JFrame calculator = new JFrame("Calculator");
 
-        JTextField result = new JTextField();
-        result.setBounds(0,0,150,50);
-        result.setEditable(false);
+        jTextField = new JTextField();
+        jTextField.setBounds(0, 0, 150, 50);
+        jTextField.setEditable(false);
 
         JButton cancle = new JButton("c");
-        cancle.setBounds(150,0,50,50);
-        JButton one = new JButton("1");
-        one.setBounds(0,50,50,50);
-        JButton two = new JButton("2");
-        two.setBounds(50,50,50,50);
-        JButton three = new JButton("3");
-        three.setBounds(100,50,50,50);
+        cancle.setBounds(150, 0, 50, 50);
+        cancle.addActionListener(event -> jTextField.setText(""));
+
+        JButton one = getButton("1", 0, 50);
+        JButton two = getButton("2", 50, 50);
+        JButton three = getButton("3", 100, 50);
+
         JButton plus = new JButton("+");
-        plus.setBounds(150,50,50,50);
-        JButton four = new JButton("4");
-        four.setBounds(0,100,50,50);
-        JButton five = new JButton("5");
-        five.setBounds(50,100,50,50);
-        JButton six = new JButton("6");
-        six.setBounds(100,100,50,50);
+        plus.setBounds(150, 50, 50, 50);
+        plus.addActionListener(e -> {
+            number1 = jTextField.getText();
+            jTextField.setText("");
+        });
+
+        JButton four = getButton("4", 0, 100);
+        JButton five = getButton("5", 50, 100);
+        JButton six = getButton("6", 100, 100);
+
         JButton minus = new JButton("-");
-        minus.setBounds(150,100,50,50);
-        JButton seven = new JButton("7");
-        seven.setBounds(0,150,50,50);
-        JButton eight = new JButton("8");
-        eight.setBounds(50,150,50,50);
-        JButton nine = new JButton("9");
-        nine.setBounds(100,150,50,50);
+        minus.setBounds(150, 100, 50, 50);
+        minus.addActionListener(e -> {
+            number1 = jTextField.getText();
+            jTextField.setText("");
+        });
+
+        JButton seven = getButton("7", 0, 150);
+        JButton eight = getButton("8", 50, 150);
+        JButton nine = getButton("9", 100, 150);
+
         JButton multiply = new JButton("x");
-        multiply.setBounds(150,150,50,50);
-        JButton point = new JButton(".");
-        point.setBounds(0,200,50,50);
-        JButton zero = new JButton("0");
-        zero.setBounds(50,200,50,50);
-        JButton equal = new JButton("=");
-        equal.setBounds(100,200,50,50);
-        JButton division = new JButton("/");
-        division.setBounds(150,200,50,50);
-
-        calculator.add(result);
-        calculator.add(cancle);
-        calculator.add(one);
-        calculator.add(two);
-        calculator.add(three);
-        calculator.add(plus);
-        calculator.add(four);
-        calculator.add(five);
-        calculator.add(six);
-        calculator.add(minus);
-        calculator.add(seven);
-        calculator.add(eight);
-        calculator.add(nine);
-        calculator.add(multiply);
-        calculator.add(point);
-        calculator.add(zero);
-        calculator.add(equal);
-        calculator.add(division);
+        multiply.setBounds(150, 150, 50, 50);
 
 
+        JButton point = getButton(".", 0, 200);
+        point.addActionListener(event -> {
+            if (jTextField.getText().contains(".")) {
+                 jTextField.setText(jTextField.getText());
+            }
+            jTextField.setText("");
+        });
 
-        calculator.setLayout(null);
-        calculator.setVisible(true);
-        calculator.setSize(600,600);
+
+            JButton zero = getButton("0", 50, 200);
+
+            JButton equal = new JButton("=");
+            equal.setBounds(100, 200, 50, 50);
+            equal.addActionListener(e -> {
+                SumOperator sumOperator = new SumOperator();
+                String addResult = sumOperator.add(number1, jTextField.getText());
+                jTextField.setText(addResult);
+            });
+        equal.addActionListener(e -> {
+            MinusOperator minusOperator = new MinusOperator();
+            String minusResult = minusOperator.menha(number1, jTextField.getText());
+            jTextField.setText(minusResult);
+        });
+
+            JButton division = new JButton("/");
+            division.setBounds(150, 200, 50, 50);
+
+
+            calculator.add(jTextField);
+            calculator.add(cancle);
+            calculator.add(one);
+            calculator.add(two);
+            calculator.add(three);
+            calculator.add(plus);
+            calculator.add(four);
+            calculator.add(five);
+            calculator.add(six);
+            calculator.add(minus);
+            calculator.add(seven);
+            calculator.add(eight);
+            calculator.add(nine);
+            calculator.add(multiply);
+            calculator.add(point);
+            calculator.add(zero);
+            calculator.add(equal);
+            calculator.add(division);
+
+            calculator.setLayout(null);
+            calculator.setVisible(true);
+            calculator.setSize(600, 600);
+
     }
-}
+
+        private static JButton getButton (String lable,int xPosition, int yPosition){
+            JButton button = new JButton(lable);
+            button.setBounds(xPosition, yPosition, 50, 50);
+            button.addActionListener(event -> jTextField.setText(jTextField.getText() + button.getText()));
+            return button;
+        }
+    }
