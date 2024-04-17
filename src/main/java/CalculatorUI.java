@@ -79,7 +79,6 @@ public class CalculatorUI {
             }
         });
 
-
             JButton division = new JButton("/");
             division.setBounds(150, 200, 50, 50);
 
