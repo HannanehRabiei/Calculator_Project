@@ -3,7 +3,8 @@ import javax.swing.*;
 public class CalculatorUI {
 
     private static JTextField jTextField;
-    private static String number1;
+    private static String firstNumber;
+    private static String lastOperation;
 
 
     public static void main(String... args) {
@@ -25,8 +26,9 @@ public class CalculatorUI {
         JButton plus = new JButton("+");
         plus.setBounds(150, 50, 50, 50);
         plus.addActionListener(e -> {
-            number1 = jTextField.getText();
+            firstNumber = jTextField.getText();
             jTextField.setText("");
+            lastOperation="+";
         });
 
         JButton four = getButton("4", 0, 100);
@@ -36,8 +38,9 @@ public class CalculatorUI {
         JButton minus = new JButton("-");
         minus.setBounds(150, 100, 50, 50);
         minus.addActionListener(e -> {
-            number1 = jTextField.getText();
+            firstNumber = jTextField.getText();
             jTextField.setText("");
+            lastOperation="-";
         });
 
         JButton seven = getButton("7", 0, 150);
@@ -51,26 +54,31 @@ public class CalculatorUI {
         JButton point = getButton(".", 0, 200);
         point.addActionListener(event -> {
             if (jTextField.getText().contains(".")) {
-                 jTextField.setText(jTextField.getText());
+                jTextField.setText(jTextField.getText());
             }
             jTextField.setText("");
         });
 
+        JButton zero = getButton("0", 50, 200);
 
-            JButton zero = getButton("0", 50, 200);
-
-            JButton equal = new JButton("=");
-            equal.setBounds(100, 200, 50, 50);
-            equal.addActionListener(e -> {
-                SumOperator sumOperator = new SumOperator();
-                String addResult = sumOperator.add(number1, jTextField.getText());
-                jTextField.setText(addResult);
-            });
+        JButton equal = new JButton("=");
+        equal.setBounds(100, 200, 50, 50);
         equal.addActionListener(e -> {
-            MinusOperator minusOperator = new MinusOperator();
-            String minusResult = minusOperator.menha(number1, jTextField.getText());
-            jTextField.setText(minusResult);
+            Calculate calculate = new Calculate();
+            switch (lastOperation){
+                case  "+":
+                    String addResult = calculate.add(firstNumber, jTextField.getText());
+                    jTextField.setText(addResult);
+                    break;
+                case "-":
+                    String minusResult = calculate.menha(firstNumber, jTextField.getText());
+                    jTextField.setText(minusResult);
+                    break;
+                default:
+                    break;
+            }
         });
+
 
             JButton division = new JButton("/");
             division.setBounds(150, 200, 50, 50);
